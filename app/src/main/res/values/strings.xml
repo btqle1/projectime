@@ -7,4 +7,8 @@
     <string-array name="module_options">
         <item>Moodle</item>
     </string-array>
+
+    <string-array name="class_options">
+        <item>CSCI 4661</item>
+    </string-array>
 </resources>

@@ -28,7 +28,7 @@ public class PTModules extends AppCompatActivity {
                 }
             }
         };
-        ListView listView = (ListView) findViewById(R.id.list_options);
+        ListView listView = (ListView) findViewById(R.id.module_options);
         listView.setOnItemClickListener(myListener);
     }
 
