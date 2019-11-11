@@ -1,14 +1,14 @@
 package com.example.projectime;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ShareActionProvider;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,7 +19,12 @@ Design
 */
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String EXTRA_CALENDAR_ID = "EXTRA_CALENDAR_ID";
+    private static final String TABLE_CALENDAR = "CALENDAR";
+    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_NAME = "NAME";
+    private Cursor calendarNameCursor;
+    private SQLiteDatabase db;
     private int testFlag = 0;
 
     @Override
@@ -31,29 +36,41 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ListView listView = (ListView) findViewById(R.id.class_options);
-        listView.setVisibility(View.INVISIBLE);
+        SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
+        db = dbHelper.getReadableDatabase();
 
-        Intent intent =getIntent();
-        this.testFlag =intent.getIntExtra("testFlag",0);
+        calendarNameCursor = db.query(TABLE_CALENDAR, new String[] {COLUMN_ID, COLUMN_NAME}, null, null, null, null, COLUMN_NAME);
 
-        if(this.testFlag == 1){
-            listView.setVisibility(View.VISIBLE);
-            AdapterView.OnItemClickListener myListener = new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    if(position == 0){
-                        Intent intent = new Intent(MainActivity.this, PTTabList.class);
-                        startActivity(intent);
-                    }
-                }
-            };
-            //ListView listView = (ListView) findViewById(R.id.class_options);
-            listView.setOnItemClickListener(myListener);
-        }
+        SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_1,
+                calendarNameCursor,
+                new String[] {COLUMN_NAME},
+                new int[]{android.R.id.text1}, 0);
+
+        listView.setAdapter(listAdapter);
+
+        AdapterView.OnItemClickListener myListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Cursor cursor = ((SimpleCursorAdapter) adapterView.getAdapter()).getCursor();
+                cursor.moveToPosition(position);
+                long calendarID = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+                Intent intent = new Intent(MainActivity.this, PTModules.class);
+                intent.putExtra(EXTRA_CALENDAR_ID, calendarID);
+            }
+        };
+
+        listView.setOnItemClickListener(myListener);
     }
 
     public void onClickDone(View view){
         Intent intent = new Intent(this, PTModules.class);
         startActivity(intent);
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        calendarNameCursor.close();
+        db.close();
     }
 }
