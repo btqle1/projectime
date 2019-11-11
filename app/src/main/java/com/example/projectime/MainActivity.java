@@ -19,7 +19,7 @@ Design
 */
 
 public class MainActivity extends AppCompatActivity {
-    private static final String EXTRA_CALENDAR_ID = "EXTRA_CALENDAR_ID";
+    public static final String EXTRA_CALENDAR_ID = "EXTRA_CALENDAR_ID";
     private static final String TABLE_CALENDAR = "CALENDAR";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NAME = "NAME";
@@ -55,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 Cursor cursor = ((SimpleCursorAdapter) adapterView.getAdapter()).getCursor();
                 cursor.moveToPosition(position);
                 long calendarID = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-                Intent intent = new Intent(MainActivity.this, PTModules.class);
+                Intent intent = new Intent(MainActivity.this, PTTabList.class);
                 intent.putExtra(EXTRA_CALENDAR_ID, calendarID);
+                startActivity(intent);
             }
         };
 

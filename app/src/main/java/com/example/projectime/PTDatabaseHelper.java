@@ -22,10 +22,16 @@ public class PTDatabaseHelper extends SQLiteOpenHelper {
                         "NAME TEXT," +
                         "COLOR INTEGER);");
         sqLiteDatabase.execSQL(
-                "CREATE TABLE EVENT (" +
+                "CREATE TABLE TAB (" +
                         "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "CALENDAR_ID INTEGER," +
+                        "NAME TEXT)");
+        sqLiteDatabase.execSQL(
+                "CREATE TABLE EVENT (" +
+                        "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "TAB_ID INTEGER," +
                         "NAME TEXT," +
+                        "TIME INTEGER," +
                         "URI TEXT);");
     }
 

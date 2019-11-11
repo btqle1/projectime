@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PTTabList"></activity>
+        <activity android:name=".PTEventList"></activity>
+        <activity android:name=".PTTabList" />
         <activity android:name=".PTMoodle" />
         <activity android:name=".PTModules" />
         <activity android:name=".MainActivity">
