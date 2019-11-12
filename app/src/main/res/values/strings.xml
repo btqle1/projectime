@@ -11,4 +11,10 @@
     <string-array name="class_options">
         <item>CSCI 4661</item>
     </string-array>
+
+    <string-array name="in_class_options">
+        <item>Week 1</item>
+        <item>Assignments</item>
+    </string-array>
+
 </resources>
