@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">ProjecTime</string>
+    <string name="calendar_sources">Calendar Sources</string>
+    <string name="projectime">ProjecTime</string>
+    <string name="add_new_module">Add new module</string>
+
+    <string-array name="module_options">
+        <item>Moodle</item>
+    </string-array>
+
+    <string-array name="class_options">
+        <item>CSCI 4661</item>
+    </string-array>
+
+    <string-array name="in_class_options">
+        <item>Week 1</item>
+        <item>Assignments</item>
+    </string-array>
+
 </resources>
