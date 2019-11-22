@@ -43,12 +43,6 @@ public class PTTabList extends AppCompatActivity {
                 new String[] {"NAME"},
                 new int[] {android.R.id.text1},
                 0);
-        while (cursor.moveToNext()){
-            long id = cursor.getLong(0);
-            long calId = cursor.getLong(1);
-            String name = cursor.getString(2);
-            Log.d("sdfsdf",name+id+calId);
-        }
 
         tabListView.setAdapter(cursorAdapter);
 

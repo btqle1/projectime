@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PTEventList">
+    <include layout="@layout/full_appbar" />
 
-    <com.kizitonwose.calendarview.CalendarView
+ <!--   <com.kizitonwose.calendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         app:cv_dayViewResource="@layout/calendar_day_layout"
         app:cv_maxRowCount="2"
         app:cv_hasBoundaries="false"
-        />
+        /> -->
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
