@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -34,14 +35,20 @@ public class PTTabList extends AppCompatActivity {
 
         SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
         db = dbHelper.getReadableDatabase();
-        cursor = db.query("TAB", new String[] {"_id", "NAME"}, "CALENDAR_ID = ?", new String[] {String.valueOf(calendarId)}, null, null, null);
 
+        cursor = db.query("TAB", new String[] {"_id", "CALENDAR_ID", "NAME"}, "CALENDAR_ID = ?", new String[] { String.valueOf(calendarId) }, null, null, null);
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
                 cursor,
                 new String[] {"NAME"},
                 new int[] {android.R.id.text1},
                 0);
+        while (cursor.moveToNext()){
+            long id = cursor.getLong(0);
+            long calId = cursor.getLong(1);
+            String name = cursor.getString(2);
+            Log.d("sdfsdf",name+id+calId);
+        }
 
         tabListView.setAdapter(cursorAdapter);
 
