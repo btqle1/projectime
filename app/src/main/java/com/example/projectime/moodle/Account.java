@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Account {
     private static final String URL_FORMAT_LOGIN = "%s://%s/login/index.php";
@@ -31,6 +32,7 @@ public class Account {
 
     private static final long UPDATE_INTERVAL_COURSE = 3600000L;
 
+    private HashMap<Integer,Course> courseLookup = new HashMap<>();
     private ArrayList<Course> courses = new ArrayList<>();
     private long lastCourseUpdate = 0;
 
@@ -38,7 +40,6 @@ public class Account {
     private String instanceDomain;
     private String username;
     private String password;
-
     private String authToken;
 
     public Account(String instanceURL, String username, String password) throws IOException {
@@ -73,6 +74,10 @@ public class Account {
             updateCourses();
         }
         return courses;
+    }
+
+    public Connection getConnection(String url) {
+        return Jsoup.connect(url).cookie(COOKIE_AUTH_TOKEN, authToken);
     }
 
     public void setUsername(String username) {
@@ -114,41 +119,32 @@ public class Account {
 
     private void updateCourses() throws IOException {
         Elements courseCards = getCourseCards();
-        ArrayList<Integer> ids = new ArrayList<>();
+        HashMap<Integer,Course> newCourseLookup = new HashMap<>();
+        ArrayList<Course> newCourses = new ArrayList<>();
         for(Element courseCard : courseCards) {
+
             Element courseNameAnchor = courseCard.selectFirst(CSS_COURSE_NAME_ANCHOR);
 
             int id = Integer.parseInt(courseCard.attr(ATTR_COURSE_ID));
             String url = courseNameAnchor.attr("href");
             String name = courseNameAnchor.text();
 
-            boolean isInList = false;
-
-            for(Course course : courses) {
-                if(course.getID() == id) {
-                    isInList = true;
-                    break;
-                }
+            Course course = courseLookup.get(id);
+            if(course == null) {
+                course = new Course(this, id, url, name);
             }
-            if(!isInList) {
-                courses.add(new Course(this, id, url, name));
-            }
-
-            ids.add(id);
+            newCourses.add(course);
+            newCourseLookup.put(id, course);
         }
-        for(Course course : courses) {
-            if(!ids.contains(course.getID())) {
-                courses.remove(course);
-            }
-        }
+        courses = newCourses;
+        courseLookup = newCourseLookup;
 
         lastCourseUpdate = System.currentTimeMillis();
     }
 
     private Elements getCourseCards() throws IOException {
         String homeURL = String.format(URL_FORMAT_HOME, instanceProtocol, instanceDomain);
-        Document homePage = Jsoup.connect(homeURL)
-                .cookie(COOKIE_AUTH_TOKEN, authToken).get();
+        Document homePage = getConnection(homeURL).get();
         Element courseCardContainer = homePage.selectFirst(CSS_COURSE_CARD_CONTAINER);
         return courseCardContainer.select(CSS_COURSE_CARDS);
     }
