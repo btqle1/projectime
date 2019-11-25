@@ -14,9 +14,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class PTEventList extends AppCompatActivity {
-
-    public static final String EXTRA_EVENT_ID = "EXTRA_EVENT_ID";
-
     private SQLiteDatabase db;
     private Cursor cursor;
 
@@ -31,11 +28,11 @@ public class PTEventList extends AppCompatActivity {
         ListView eventListView = (ListView)findViewById(R.id.event_list);
 
         Intent intent = getIntent();
-        long calendarId = intent.getLongExtra(MainActivity.EXTRA_CALENDAR_ID, -1);
+        long tabId = intent.getLongExtra(PTTabList.EXTRA_TAB_ID, -1);
 
         SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
         db = dbHelper.getReadableDatabase();
-        cursor = db.query("EVENT", new String[] {"_id", "NAME"}, "CALENDAR_ID = ?", new String[] {String.valueOf(calendarId)}, null, null, null);
+        cursor = db.query("EVENT", new String[] {"_id", "NAME"}, "TAB_ID = ?", new String[] {String.valueOf(tabId)}, null, null, null);
 
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
@@ -51,10 +48,7 @@ public class PTEventList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Cursor cursor = ((SimpleCursorAdapter)adapterView.getAdapter()).getCursor();
                 cursor.moveToPosition(position);
-                long tabId = cursor.getLong(cursor.getColumnIndex("_id"));
-                Intent intent = new Intent(PTEventList.this, PTEventList.class);
-                intent.putExtra(EXTRA_EVENT_ID, tabId);
-                startActivity(intent);
+                long eventId = cursor.getLong(cursor.getColumnIndex("_id"));
             }
         });
     }
@@ -65,5 +59,4 @@ public class PTEventList extends AppCompatActivity {
         cursor.close();
         db.close();
     }
-
 }
