@@ -3,6 +3,7 @@
     <string name="calendar_sources">Calendar Sources</string>
     <string name="projectime">ProjecTime</string>
     <string name="add_new_module">Add new module</string>
+    <string name="add_event">Add Event</string>
 
     <string-array name="module_options">
         <item>Moodle</item>
@@ -15,6 +16,12 @@
     <string-array name="in_class_options">
         <item>Week 1</item>
         <item>Assignments</item>
+    </string-array>
+
+    <string-array name="spinner_values">
+        <item>December 1</item>
+        <item>December 2</item>
+        <item>December 3</item>
     </string-array>
 
 </resources>

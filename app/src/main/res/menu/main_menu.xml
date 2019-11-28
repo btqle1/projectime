@@ -5,8 +5,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/add_new_module"
-        android:title="@string/add_new_module"
+    <item android:id="@+id/add_new_event"
+        android:title="@string/add_event"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"/>
 
