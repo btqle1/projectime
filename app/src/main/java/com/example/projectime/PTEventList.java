@@ -80,7 +80,7 @@ public class PTEventList extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Intent intent = new Intent(PTEventList.this, PTEventEdit.class);
-                    //Need code to pass in the id of what is clicked
+                    intent.putExtra(PTEventEdit.EXTRA_EVENT_ID, position);
                     startActivity(intent);
                 }
             });
@@ -93,7 +93,7 @@ public class PTEventList extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.add_menu, menu);
         //MenuItem menuItem = menu.findItem(R.id.add_new_event);
         return super.onCreateOptionsMenu(menu);
     }

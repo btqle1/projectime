@@ -4,6 +4,7 @@
     <string name="projectime">ProjecTime</string>
     <string name="add_new_module">Add new module</string>
     <string name="add_event">Add Event</string>
+    <string name="delete_event">Delete Event</string>
 
     <string-array name="module_options">
         <item>Moodle</item>
