@@ -18,6 +18,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/edit_text_instance_url"
         android:ems="10"/>
 
     <TextView
@@ -27,6 +28,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/edit_text_username"
         android:ems="10"/>
 
     <TextView
@@ -36,6 +38,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/edit_text_password"
         android:ems="10"/>
 
     <Button

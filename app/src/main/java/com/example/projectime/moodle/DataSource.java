@@ -48,12 +48,31 @@ public class DataSource {
                     .get(tabIndex)
                     .getModules();
         } catch (IOException e) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
         for(Module module : modules) {
             events.add(module.getName());
         }
 
         return events;
+    }
+
+    public ArrayList<String> getURLs(int calendarIndex, int tabIndex) throws IOException {
+        ArrayList<String> urls = new ArrayList<>();
+        ArrayList<Module> modules;
+        try {
+            modules = account.getCourses()
+                    .get(calendarIndex)
+                    .getTabs()
+                    .get(tabIndex)
+                    .getModules();
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+        for(Module module : modules) {
+            urls.add(module.getUrl());
+        }
+
+        return urls;
     }
 }
