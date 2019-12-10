@@ -9,7 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.EditText;
 
 import java.util.Random;
 
@@ -23,6 +25,8 @@ public class PTMoodle extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        EditText password = (EditText) findViewById(R.id.password);
+        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
     }
 
     public void onLogin(View view){

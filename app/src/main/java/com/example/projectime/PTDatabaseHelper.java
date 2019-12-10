@@ -9,9 +9,13 @@ import androidx.annotation.Nullable;
 public class PTDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "projectime";
     private static final int DB_VERSION = 1;
+    private SQLiteDatabase db;
+    private PTDatabaseHelper instance;
+    private Context context;
 
     public PTDatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+
     }
 
     @Override
@@ -37,6 +41,8 @@ public class PTDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        /*db.execSQL("DROP TABLE IF EXISTS " + "CALENDAR");
+        onCreate(db);*/
     }
+
 }
