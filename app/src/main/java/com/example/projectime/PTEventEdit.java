@@ -111,7 +111,7 @@ public class PTEventEdit extends AppCompatActivity {
             db = dbHelper.getWritableDatabase();
             db.delete("EVENT",
                      "_id = ?",
-                    new String[]{Integer.toString(eventID)});
+                    new String[]{String.valueOf(1)/*Integer.toString(eventID)*/});
 
             /*if(cursor.moveToFirst()){
                 String name = cursor.getString(0);
@@ -122,5 +122,6 @@ public class PTEventEdit extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
+
     }
 }

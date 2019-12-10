@@ -20,6 +20,7 @@ import android.widget.Toast;
 public class PTEventList extends AppCompatActivity {
     private SQLiteDatabase db;
     private Cursor cursor;
+    //ListView eventListView = (ListView)findViewById(R.id.event_list);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +86,13 @@ public class PTEventList extends AppCompatActivity {
                 }
             });
 
+
         } catch(SQLiteException e){
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
+
+        //refreshListView();
     }
 
     @Override
@@ -111,11 +115,24 @@ public class PTEventList extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         cursor.close();
         db.close();
     }
+
+/*    public void refreshListView(){
+        ListView eventListView = (ListView)findViewById(R.id.event_list);
+
+        SimpleCursorAdapter eventNameListAdapter = new SimpleCursorAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                cursor,
+                new String[] {"NAME"},
+                new int[]{android.R.id.text1},
+                0);
+
+        eventListView.setAdapter(eventNameListAdapter);
+    }*/
 }
