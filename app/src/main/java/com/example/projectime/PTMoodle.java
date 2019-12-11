@@ -53,24 +53,30 @@ public class PTMoodle extends AppCompatActivity {
         Random rng = new Random();
 
         ContentValues cv = new ContentValues();
+        ContentValues cv2 = new ContentValues();
+        ContentValues cv3 = new ContentValues();
+
 
         for(int i = 0; i < calendars.size(); i++) {
             Calendar calendar = calendars.get(i);
 
+            cv.put("_id", i);
             cv.put("NAME", calendar.getName());
             cv.put("COLOR", rng.nextInt(1 << 24));
 
-            long calendarId = db.insert("CALENDAR", null, cv);
+            long calendarId = i;
+            db.insert("CALENDAR", null, cv);
 
             ArrayList<Tab> tabs = calendar.getTabs();
             for(int j = 0; j < tabs.size(); j++) {
                 Tab tab = tabs.get(j);
 
-                cv = new ContentValues();
-                cv.put("_ID", calendarId);
-                cv.put("NAME", tab.getName());
+                cv2 = new ContentValues();
+                cv2.put("_id", j);
+                cv2.put("CALENDAR_ID", calendarId);
+                cv2.put("NAME", tab.getName());
 
-                long tabId = db.insert("TAB", null, cv);
+                long tabId = db.insert("TAB", null, cv2);
                 Log.i("info", "New tab added");
 
                 ArrayList<Event> events = tab.getEvents();
@@ -78,13 +84,13 @@ public class PTMoodle extends AppCompatActivity {
                     Event event = events.get(k);
                     long time = System.currentTimeMillis() / 1000L + 3600L;
 
-                    cv = new ContentValues();
-                    cv.put("TAB_ID", tabId);
-                    cv.put("NAME", event.getName());
-                    cv.put("TIME", time);
-                    cv.put("URI", event.getUrl());
+                    cv3 = new ContentValues();
+                    cv3.put("TAB_ID", tabId);
+                    cv3.put("NAME", event.getName());
+                    cv3.put("TIME", time);
+                    cv3.put("URI", event.getUrl());
 
-                    long eventId = db.insert("EVENT", null, cv);
+                    long eventId = db.insert("EVENT", null, cv3);
                 }
             }
         }
