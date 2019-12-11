@@ -110,14 +110,13 @@ public class PTMoodle extends AppCompatActivity {
                     ArrayList<Event> events = tab.getEvents();
                     for(int k = 0; k < events.size(); k++) {
                         Event event = events.get(k);
-                        long time = System.currentTimeMillis() / 1000L + 3600L;
 
                         cv3 = new ContentValues();
                         cv3.put("_id", k);
                         cv3.put("CALENDAR_ID", calendarId);
                         cv3.put("TAB_ID", tabId);
                         cv3.put("NAME", event.getName());
-                        cv3.put("TIME", time);
+                        cv3.put("TIME", event.getTime());
                         cv3.put("URI", event.getUrl());
 
                         Log.i("info", "New event added");
