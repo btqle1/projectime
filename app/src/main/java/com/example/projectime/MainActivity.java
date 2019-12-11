@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /*
 MUST add to project structure:
@@ -39,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
         db = dbHelper.getReadableDatabase();
 
-        calendarNameCursor = db.query(TABLE_CALENDAR, new String[] {COLUMN_ID, COLUMN_NAME}, null, null, null, null, COLUMN_NAME);
+        calendarNameCursor = db.query(TABLE_CALENDAR,
+                new String[] {COLUMN_ID, COLUMN_NAME},
+                null, null, null, null, COLUMN_NAME);
 
         SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
+
+        calendarNameCursor.moveToFirst();
 
         listView.setOnItemClickListener(myListener);
     }

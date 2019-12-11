@@ -36,7 +36,12 @@ public class PTTabList extends AppCompatActivity {
         SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
         db = dbHelper.getReadableDatabase();
 
-        cursor = db.query("TAB", new String[] {"_id", "CALENDAR_ID", "NAME"}, "CALENDAR_ID = ?", new String[] { String.valueOf(calendarId) }, null, null, null);
+        cursor = db.query("TAB",
+                new String[] {"_id", "CALENDAR_ID", "NAME"},
+                "CALENDAR_ID = ?",
+                new String[] { String.valueOf(calendarId) },
+                null, null, null);
+
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
                 cursor,

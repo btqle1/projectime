@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.projectime.Calendar;
 import com.example.projectime.Event;
@@ -45,6 +46,7 @@ public class DataPopulateTask extends AsyncTask<String, Void, ArrayList<Calendar
 
                     tabs.add(new Tab(tabNames.get(j), events));
                 }
+                Log.i("info", "New calendar added");
                 calendars.add(new Calendar(calendarNames.get(i), tabs));
             }
 

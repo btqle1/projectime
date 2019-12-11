@@ -18,12 +18,12 @@ public class PTDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(
                 "CREATE TABLE CALENDAR (" +
-                        "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "_id INTEGER ," +
                         "NAME TEXT," +
                         "COLOR INTEGER);");
         sqLiteDatabase.execSQL(
                 "CREATE TABLE TAB (" +
-                        "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "_id INTEGER ," +
                         "CALENDAR_ID INTEGER," +
                         "NAME TEXT)");
         sqLiteDatabase.execSQL(

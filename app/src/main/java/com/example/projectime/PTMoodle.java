@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -66,10 +67,11 @@ public class PTMoodle extends AppCompatActivity {
                 Tab tab = tabs.get(j);
 
                 cv = new ContentValues();
-                cv.put("CALENDAR_ID", calendarId);
+                cv.put("_ID", calendarId);
                 cv.put("NAME", tab.getName());
 
                 long tabId = db.insert("TAB", null, cv);
+                Log.i("info", "New tab added");
 
                 ArrayList<Event> events = tab.getEvents();
                 for(int k = 0; k < events.size(); k++) {

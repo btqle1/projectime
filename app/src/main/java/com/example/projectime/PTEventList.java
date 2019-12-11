@@ -32,7 +32,11 @@ public class PTEventList extends AppCompatActivity {
 
         SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
         db = dbHelper.getReadableDatabase();
-        cursor = db.query("EVENT", new String[] {"_id", "NAME"}, "TAB_ID = ?", new String[] {String.valueOf(tabId)}, null, null, null);
+        cursor = db.query("EVENT",
+                new String[] {"_id", "NAME"},
+                "TAB_ID = ?",
+                new String[] {String.valueOf(tabId)},
+                null, null, null);
 
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
