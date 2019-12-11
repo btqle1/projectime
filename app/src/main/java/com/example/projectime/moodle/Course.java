@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -28,12 +29,14 @@ public class Course {
     private int id;
     private String url;
     private String name;
+    private Date startDate;
 
     public Course(Account account, int id, String url, String name) {
         this.account = account;
         this.id = id;
         this.url = url;
         this.name = name;
+        startDate = new Date();
     }
 
     public int getID() {
@@ -81,5 +84,9 @@ public class Course {
         long currentTime = System.currentTimeMillis();
         long timeSinceLastUpdate = currentTime - lastTabUpdate;
         return timeSinceLastUpdate <= UPDATE_INTERVAL_TAB;
+    }
+
+    public Date getStartDate() {
+        return startDate;
     }
 }

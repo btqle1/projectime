@@ -75,4 +75,23 @@ public class DataSource {
 
         return urls;
     }
+
+    public ArrayList<Long> getTimes(int calendarIndex, int tabIndex) {
+        ArrayList<Long> times = new ArrayList<>();
+        ArrayList<Module> modules;
+        try {
+            modules = account.getCourses()
+                    .get(calendarIndex)
+                    .getTabs()
+                    .get(tabIndex)
+                    .getModules();
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+        for(Module module : modules) {
+            times.add(module.getTime());
+        }
+
+        return times;
+    }
 }

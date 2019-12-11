@@ -1,20 +1,15 @@
 package com.example.projectime.moodle;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.projectime.Calendar;
 import com.example.projectime.Event;
-import com.example.projectime.PTDatabaseHelper;
 import com.example.projectime.PTMoodle;
 import com.example.projectime.Tab;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class DataPopulateTask extends AsyncTask<String, Void, ArrayList<Calendar>> {
     private PTMoodle ptMoodle;
@@ -37,11 +32,14 @@ public class DataPopulateTask extends AsyncTask<String, Void, ArrayList<Calendar
                     ArrayList<Event> events = new ArrayList<>();
                     ArrayList<String> eventNames = dataSource.getEvents(i, j);
                     ArrayList<String> urls = dataSource.getURLs(i, j);
+                    ArrayList<Long> times = dataSource.getTimes(i, j);
 
                     for (int k = 0; k < eventNames.size(); k++) {
                         String name = eventNames.get(k);
                         String url = urls.get(k);
-                        events.add(new Event(name, url));
+                        long time = times.get(k);
+
+                        events.add(new Event(name, url, time));
                     }
 
                     tabs.add(new Tab(tabNames.get(j), events));
