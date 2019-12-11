@@ -28,7 +28,8 @@ public class PTDatabaseHelper extends SQLiteOpenHelper {
                         "NAME TEXT)");
         sqLiteDatabase.execSQL(
                 "CREATE TABLE EVENT (" +
-                        "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "_id INTEGER ," +
+                        "CALENDAR_ID INTEGER," +
                         "TAB_ID INTEGER," +
                         "NAME TEXT," +
                         "TIME INTEGER," +

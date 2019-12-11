@@ -29,13 +29,14 @@ public class PTEventList extends AppCompatActivity {
 
         Intent intent = getIntent();
         long tabId = intent.getLongExtra(PTTabList.EXTRA_TAB_ID, -1);
+        long calendarID = intent.getLongExtra(PTTabList.EXTRA_CALENDAR_ID, -1);
 
         SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
         db = dbHelper.getReadableDatabase();
         cursor = db.query("EVENT",
-                new String[] {"_id", "NAME"},
-                "TAB_ID = ?",
-                new String[] {String.valueOf(tabId)},
+                new String[] {"_id", "CALENDAR_ID", "TAB_ID", "NAME"},
+                "TAB_ID = ? AND CALENDAR_ID = ?",
+                new String[] {String.valueOf(tabId), String.valueOf(calendarID)},
                 null, null, null);
 
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,

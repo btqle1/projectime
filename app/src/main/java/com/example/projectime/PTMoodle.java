@@ -76,7 +76,8 @@ public class PTMoodle extends AppCompatActivity {
                 cv2.put("CALENDAR_ID", calendarId);
                 cv2.put("NAME", tab.getName());
 
-                long tabId = db.insert("TAB", null, cv2);
+                long tabId = j;
+                db.insert("TAB", null, cv2);
                 Log.i("info", "New tab added");
 
                 ArrayList<Event> events = tab.getEvents();
@@ -85,11 +86,14 @@ public class PTMoodle extends AppCompatActivity {
                     long time = System.currentTimeMillis() / 1000L + 3600L;
 
                     cv3 = new ContentValues();
+                    cv3.put("_id", k);
+                    cv3.put("CALENDAR_ID", calendarId);
                     cv3.put("TAB_ID", tabId);
                     cv3.put("NAME", event.getName());
                     cv3.put("TIME", time);
                     cv3.put("URI", event.getUrl());
 
+                    Log.i("info", "New event added");
                     long eventId = db.insert("EVENT", null, cv3);
                 }
             }

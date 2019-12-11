@@ -16,9 +16,11 @@ import android.widget.SimpleCursorAdapter;
 
 public class PTTabList extends AppCompatActivity {
     public static final String EXTRA_TAB_ID = "EXTRA_TAB_ID";
+    public static final String EXTRA_CALENDAR_ID = "EXTRA_CALENDAR_ID";
 
     private SQLiteDatabase db;
     private Cursor cursor;
+    private static long calendarId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class PTTabList extends AppCompatActivity {
         ListView tabListView = (ListView)findViewById(R.id.tab_list);
 
         Intent intent = getIntent();
-        long calendarId = intent.getLongExtra(MainActivity.EXTRA_CALENDAR_ID, -1);
+        calendarId = intent.getLongExtra(MainActivity.EXTRA_CALENDAR_ID, -1);
 
         SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
         db = dbHelper.getReadableDatabase();
@@ -59,6 +61,7 @@ public class PTTabList extends AppCompatActivity {
                 long tabId = cursor.getLong(cursor.getColumnIndex("_id"));
                 Intent intent = new Intent(PTTabList.this, PTEventList.class);
                 intent.putExtra(EXTRA_TAB_ID, tabId);
+                intent.putExtra(EXTRA_CALENDAR_ID, PTTabList.calendarId);
                 startActivity(intent);
             }
         });
