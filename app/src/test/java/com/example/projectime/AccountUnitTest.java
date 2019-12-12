@@ -50,4 +50,17 @@ public class AccountUnitTest {
 
         assertEquals(LoginStrings.firstCourseTabCount, firstCourseTabs.size());
     }
+
+    @Test
+    public void testTabList2() throws IOException {
+        String instanceURL = LoginStrings.instanceURL;
+        String username = LoginStrings.username;
+        String password = LoginStrings.password;
+
+        Account account = new Account(instanceURL, username, password);
+        ArrayList<Course> courses = account.getCourses();
+        ArrayList<Tab> secondCourseTabs = courses.get(1).getTabs();
+
+        assertEquals(LoginStrings.secondCourseTabCount, secondCourseTabs.size());
+    }
 }

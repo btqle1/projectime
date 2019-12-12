@@ -4,11 +4,30 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class Tab {
+    private static final String[] MONTHS = {
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+    };
+
     private static final String CSS_MODULES = "div.content > ul.section.img-text > li";
     private static final String CSS_MODULE_NAME = "p.instancename";
+    private static final String CSS_MODULE_DATE = "a.snap-due-date";
 
     private static final String ATTR_ID = "id";
     private static final String ATTR_URL = "data-href";
@@ -51,11 +70,30 @@ public class Tab {
             String url = moduleElement.attr(ATTR_URL);
             String type = moduleElement.attr(ATTR_TYPE);
 
+            Calendar dueDate = new GregorianCalendar();
+
+            dueDate.setTime(course.getStartDate());
+
+            try {
+                Element dateElement = moduleElement.selectFirst(CSS_MODULE_DATE);
+                String date = dateElement.text();
+
+                for(int i = 0; i < MONTHS.length; i++) {
+                    int x = date.indexOf(MONTHS[i]);
+                    if(x != -1) {
+                        String[] sections = date.substring(x).split(" ");
+                        int day = Integer.parseInt(sections[1].replace(",",""));
+                        int year = Integer.parseInt(sections[2]);
+                        dueDate = new GregorianCalendar(year, i, day);
+                    }
+                }
+            } catch (Exception e) {}
+
             Module module = null;
             if(moduleLookup.containsKey(id)) {
                 module = moduleLookup.get(id);
             } else {
-                module = new Module(this, id, name, url, type);
+                module = new Module(this, id, name, url, type, dueDate.getTimeInMillis());
             }
             newModules.add(module);
             newModuleLookup.put(id, module);
