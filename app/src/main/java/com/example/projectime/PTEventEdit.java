@@ -108,6 +108,7 @@ public class PTEventEdit extends AppCompatActivity {
         cv = new ContentValues();
         cv.put("NAME", eventName);
         cv.put("TIME", date);
+        cv.put("TIMEISKNOWN", true);
         try{
             SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
             db = dbHelper.getWritableDatabase();
@@ -120,7 +121,6 @@ public class PTEventEdit extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
-        //db.close();
 
         Intent intent = new Intent(this, PTEventList.class);
         intent.putExtra(EXTRA_TAB_ID, tabID);

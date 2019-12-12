@@ -55,7 +55,7 @@ public class DataPopulateTask extends AsyncTask<String, Void, ArrayList<Calendar
             e.printStackTrace();
         }
 
-        return null;
+        return new ArrayList<Calendar>();
     }
 
     @Override
