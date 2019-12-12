@@ -57,6 +57,25 @@ public class DataSource {
         return events;
     }
 
+    public ArrayList<Long> getTimes(int calendarIndex, int tabIndex) {
+        ArrayList<Long> times = new ArrayList<>();
+        ArrayList<Module> modules;
+        try {
+            modules = account.getCourses()
+                    .get(calendarIndex)
+                    .getTabs()
+                    .get(tabIndex)
+                    .getModules();
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+        for(Module module : modules) {
+            times.add(module.getTime());
+        }
+
+        return times;
+    }
+
     public ArrayList<String> getURLs(int calendarIndex, int tabIndex) throws IOException {
         ArrayList<String> urls = new ArrayList<>();
         ArrayList<Module> modules;
@@ -76,8 +95,8 @@ public class DataSource {
         return urls;
     }
 
-    public ArrayList<Long> getTimes(int calendarIndex, int tabIndex) {
-        ArrayList<Long> times = new ArrayList<>();
+    public ArrayList<Boolean> getCertainties(int calendarIndex, int tabIndex) {
+        ArrayList<Boolean> certainties = new ArrayList<>();
         ArrayList<Module> modules;
         try {
             modules = account.getCourses()
@@ -89,9 +108,9 @@ public class DataSource {
             return new ArrayList<>();
         }
         for(Module module : modules) {
-            times.add(module.getTime());
+            certainties.add(module.getType().equals("Assignment"));
         }
 
-        return times;
+        return certainties;
     }
 }

@@ -39,7 +39,7 @@ public class PTEventList extends AppCompatActivity {
             SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
             db = dbHelper.getReadableDatabase();
             cursor = db.query("EVENT",
-                    new String[]{"_id", "CALENDAR_ID", "TAB_ID", "NAME", "TIME"},
+                    new String[]{"_id", "CALENDAR_ID", "TAB_ID", "NAME", "TIME", "TIMEISKNOWN"},
                     "TAB_ID = ? AND CALENDAR_ID = ?",
                     new String[]{String.valueOf(tabId), String.valueOf(calendarID)},
                     null, null, null);
@@ -51,7 +51,7 @@ public class PTEventList extends AppCompatActivity {
                     new int[]{android.R.id.text1},
                     0);
             cursor.moveToFirst();
-            long testValue = cursor.getLong(cursor.getColumnIndex("TIME"));
+
             eventListView.setAdapter(cursorAdapter);
 
             eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -9,19 +9,15 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projectime.moodle.DataPopulateTask;
-import com.example.projectime.moodle.DataSource;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -117,6 +113,7 @@ public class PTMoodle extends AppCompatActivity {
                         cv3.put("TAB_ID", tabId);
                         cv3.put("NAME", event.getName());
                         cv3.put("TIME", event.getTime());
+                        cv3.put("TIMEISKNOWN", event.isTimeKnown());
                         cv3.put("URI", event.getUrl());
 
                         Log.i("info", "New event added");
@@ -128,7 +125,8 @@ public class PTMoodle extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
-        db.close();
+
+        new PredictDatesTask().execute(db);
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

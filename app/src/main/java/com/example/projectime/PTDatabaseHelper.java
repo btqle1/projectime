@@ -3,6 +3,7 @@ package com.example.projectime;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -33,11 +34,15 @@ public class PTDatabaseHelper extends SQLiteOpenHelper {
                         "TAB_ID INTEGER," +
                         "NAME TEXT," +
                         "TIME INTEGER," +
+                        "TIMEISKNOWN BOOLEAN," +
                         "URI TEXT);");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        Log.d("INFO", "Upgrading database to v"+newVersion);
+        if(newVersion == 3) {
+            sqLiteDatabase.execSQL("ALTER TABLE EVENT ADD COLUMN TIMEISKNOWN BOOLEAN;");
+        }
     }
 }
