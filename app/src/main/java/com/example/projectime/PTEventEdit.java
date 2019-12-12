@@ -27,6 +27,7 @@ public class PTEventEdit extends AppCompatActivity {
     private SQLiteOpenHelper dbHelper;
     private Cursor cursor;
     private ContentValues cv;
+    private long eventID;
     private long tabID;
     private long calendarID;
 
@@ -38,7 +39,7 @@ public class PTEventEdit extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        long eventID = getIntent().getLongExtra(EXTRA_EVENT_ID, -1) + 1;
+        eventID = getIntent().getLongExtra(EXTRA_EVENT_ID, -1) + 1;
         int intEventID = (int)eventID;
         tabID = getIntent().getLongExtra(EXTRA_TAB_ID, -1);
         calendarID = getIntent().getLongExtra(EXTRA_CALENDAR_ID, -1);
@@ -47,12 +48,12 @@ public class PTEventEdit extends AppCompatActivity {
             db = dbHelper.getReadableDatabase();
             cursor = db.query("EVENT",
                     new String[]{"_id", "NAME","CALENDAR_ID","TAB_ID"},
-                    "_id = ? AND CALENDAR_ID = ? AND TAB_ID = ?",
+                    "_id = ? AND TAB_ID = ? AND CALENDAR_ID = ?",
                     new String[]{String.valueOf(eventID), String.valueOf(tabID), String.valueOf(calendarID)},
                     null, null, null);
 
-            if(cursor.moveToPosition(intEventID)){
-                String name = cursor.getString(0);
+            if(cursor.moveToFirst()){
+                String name = cursor.getString(cursor.getColumnIndex("NAME"));
                 EditText editText = (EditText) findViewById(R.id.edit_event_name);
                 editText.setText(name);
             }
@@ -70,7 +71,6 @@ public class PTEventEdit extends AppCompatActivity {
     public void onConfirmEdit(View view){
         EditText eventNameField = (EditText) findViewById(R.id.edit_event_name);
         String eventName = eventNameField.getText().toString();
-        int eventID = getIntent().getIntExtra(EXTRA_EVENT_ID, -1) + 1;
         cv = new ContentValues();
         cv.put("NAME", eventName);
         try{
@@ -78,8 +78,8 @@ public class PTEventEdit extends AppCompatActivity {
             db = dbHelper.getWritableDatabase();
             db.update("EVENT",
                     cv,
-                    "_id = ?",
-                    new String[]{Integer.toString(eventID)});
+                    "_id = ? AND TAB_ID = ? AND CALENDAR_ID = ?",
+                    new String[]{String.valueOf(eventID), String.valueOf(tabID), String.valueOf(calendarID)});
 
         } catch(SQLiteException e){
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);

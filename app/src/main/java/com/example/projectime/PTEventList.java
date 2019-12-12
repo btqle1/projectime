@@ -56,7 +56,7 @@ public class PTEventList extends AppCompatActivity {
                     new int[]{android.R.id.text1},
                     0);
             cursor.moveToFirst();
-            long testValue = cursor.getLong(cursor.getColumnIndex("TIME"));
+            //long testValue = cursor.getLong(cursor.getColumnIndex("TIME"));
             eventListView.setAdapter(cursorAdapter);
 
             eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,7 +67,7 @@ public class PTEventList extends AppCompatActivity {
                     long eventId = cursor.getLong(cursor.getColumnIndex("_id"));
 
                     Intent intent = new Intent(PTEventList.this, PTEventEdit.class);
-                    intent.putExtra(EXTRA_EVENT_ID, position);
+                    intent.putExtra(EXTRA_EVENT_ID, eventId-1);
                     intent.putExtra(EXTRA_TAB_ID, tabID);
                     intent.putExtra(EXTRA_CALENDAR_ID, calendarID);
                     startActivity(intent);
