@@ -1,5 +1,6 @@
 package com.example.projectime;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -11,6 +12,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -46,6 +48,9 @@ public class PTEventEdit extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
         eventID = getIntent().getLongExtra(EXTRA_EVENT_ID, -1) + 1;
         int intEventID = (int)eventID;
@@ -133,6 +138,21 @@ public class PTEventEdit extends AppCompatActivity {
         super.onDestroy();
         cursor.close();
         new PredictDatesTask().doInBackground(db);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                Intent intent = new Intent(PTEventEdit.this, PTEventList.class);
+                intent.putExtra(EXTRA_CALENDAR_ID, calendarID);
+                intent.putExtra(EXTRA_TAB_ID, tabID);
+                startActivity(intent);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public String[] initDayArray(){

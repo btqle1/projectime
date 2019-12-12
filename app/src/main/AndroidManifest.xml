@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AgendaActivity"></activity>
-        <activity android:name=".PTEventEdit" />
+        <activity
+            android:name=".PTEventEdit"
+            android:parentActivityName=".PTEventList"/>
         <activity
             android:name=".PTEventList"
             android:parentActivityName=".MainActivity" />

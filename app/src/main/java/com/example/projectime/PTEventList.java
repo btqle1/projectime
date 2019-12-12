@@ -88,11 +88,14 @@ public class PTEventList extends AppCompatActivity {
         db.close();
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                onBackPressed();
+                Intent intent = new Intent(PTEventList.this, PTTabList.class);
+                intent.putExtra(EXTRA_CALENDAR_ID, calendarID);
+                startActivity(intent);
                 return true;
         }
 
