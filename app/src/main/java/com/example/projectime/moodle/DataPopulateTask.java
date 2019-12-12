@@ -33,13 +33,15 @@ public class DataPopulateTask extends AsyncTask<String, Void, ArrayList<Calendar
                     ArrayList<String> eventNames = dataSource.getEvents(i, j);
                     ArrayList<String> urls = dataSource.getURLs(i, j);
                     ArrayList<Long> times = dataSource.getTimes(i, j);
+                    ArrayList<Boolean> certainties = dataSource.getCertainties(i, j);
 
                     for (int k = 0; k < eventNames.size(); k++) {
                         String name = eventNames.get(k);
                         String url = urls.get(k);
                         long time = times.get(k);
+                        boolean timeIsKnown = certainties.get(k);
 
-                        events.add(new Event(name, url, time));
+                        events.add(new Event(name, url, timeIsKnown, time));
                     }
 
                     tabs.add(new Tab(tabNames.get(j), events));

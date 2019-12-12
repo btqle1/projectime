@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         "TAB_ID INTEGER," +
                         "NAME TEXT," +
                         "TIME INTEGER," +
+                        "TIMEISKNOWN BOOLEAN," +
                         "URI TEXT);");
         db.close();
         recreate();
