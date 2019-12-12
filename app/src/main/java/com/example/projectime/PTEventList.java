@@ -17,8 +17,13 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class PTEventList extends AppCompatActivity {
+    public static final String EXTRA_TAB_ID = "EXTRA_TAB_ID";
+    public static final String EXTRA_CALENDAR_ID = "EXTRA_CALENDAR_ID";
+    public static final String EXTRA_EVENT_ID = "EXTRA_EVENT_ID";
     private SQLiteDatabase db;
     private Cursor cursor;
+    private static long calendarID;
+    private static long tabID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +38,15 @@ public class PTEventList extends AppCompatActivity {
         ListView eventListView = (ListView) findViewById(R.id.event_list);
 
         Intent intent = getIntent();
-        long tabId = intent.getLongExtra(PTTabList.EXTRA_TAB_ID, -1);
-        long calendarID = intent.getLongExtra(PTTabList.EXTRA_CALENDAR_ID, -1);
+        tabID = intent.getLongExtra(PTTabList.EXTRA_TAB_ID, -1);
+        calendarID = intent.getLongExtra(PTTabList.EXTRA_CALENDAR_ID, -1);
         try{
             SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
             db = dbHelper.getReadableDatabase();
             cursor = db.query("EVENT",
                     new String[]{"_id", "CALENDAR_ID", "TAB_ID", "NAME", "TIME", "TIMEISKNOWN"},
                     "TAB_ID = ? AND CALENDAR_ID = ?",
-                    new String[]{String.valueOf(tabId), String.valueOf(calendarID)},
+                    new String[]{String.valueOf(tabID), String.valueOf(calendarID)},
                     null, null, null);
 
             SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
@@ -60,6 +65,12 @@ public class PTEventList extends AppCompatActivity {
                     Cursor cursor = ((SimpleCursorAdapter) adapterView.getAdapter()).getCursor();
                     cursor.moveToPosition(position);
                     long eventId = cursor.getLong(cursor.getColumnIndex("_id"));
+
+                    Intent intent = new Intent(PTEventList.this, PTEventEdit.class);
+                    intent.putExtra(EXTRA_EVENT_ID, eventId-1);
+                    intent.putExtra(EXTRA_TAB_ID, tabID);
+                    intent.putExtra(EXTRA_CALENDAR_ID, calendarID);
+                    startActivity(intent);
                 }
             });
         } catch(SQLiteException e){

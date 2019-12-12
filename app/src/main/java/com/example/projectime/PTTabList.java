@@ -23,7 +23,7 @@ public class PTTabList extends AppCompatActivity {
 
     private SQLiteDatabase db;
     private Cursor cursor;
-    private static long calendarId;
+    private static long calendarID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class PTTabList extends AppCompatActivity {
         ListView tabListView = (ListView)findViewById(R.id.tab_list);
 
         Intent intent = getIntent();
-        calendarId = intent.getLongExtra(MainActivity.EXTRA_CALENDAR_ID, -1);
+        calendarID = intent.getLongExtra(MainActivity.EXTRA_CALENDAR_ID, -1);
 
         try {
             SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
@@ -47,7 +47,7 @@ public class PTTabList extends AppCompatActivity {
             cursor = db.query("TAB",
                     new String[] {"_id", "CALENDAR_ID", "NAME"},
                     "CALENDAR_ID = ?",
-                    new String[] { String.valueOf(calendarId) },
+                    new String[] { String.valueOf(calendarID) },
                     null, null, null);
 
             SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
@@ -65,9 +65,10 @@ public class PTTabList extends AppCompatActivity {
                     Cursor cursor = ((SimpleCursorAdapter)adapterView.getAdapter()).getCursor();
                     cursor.moveToPosition(position);
                     long tabId = cursor.getLong(cursor.getColumnIndex("_id"));
+
                     Intent intent = new Intent(PTTabList.this, PTEventList.class);
                     intent.putExtra(EXTRA_TAB_ID, tabId);
-                    intent.putExtra(EXTRA_CALENDAR_ID, PTTabList.calendarId);
+                    intent.putExtra(EXTRA_CALENDAR_ID, PTTabList.calendarID);
                     startActivity(intent);
                 }
             });
