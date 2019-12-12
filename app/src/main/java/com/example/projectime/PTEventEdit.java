@@ -108,6 +108,7 @@ public class PTEventEdit extends AppCompatActivity {
         cv = new ContentValues();
         cv.put("NAME", eventName);
         cv.put("TIME", date);
+        cv.put("TIMEISKNOWN", true);
         try{
             SQLiteOpenHelper dbHelper = new PTDatabaseHelper(this);
             db = dbHelper.getWritableDatabase();
