@@ -18,7 +18,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"/>
+        android:id="@+id/edit_text_instance_url"
+        android:ems="10"
+        android:text="uno.mrooms3.net"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +29,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"/>
+        android:id="@+id/edit_text_username"
+        android:ems="10"
+        android:text=""/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +40,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"/>
+        android:id="@+id/edit_text_password"
+        android:ems="10"
+        android:text=""/>
 
     <Button
         android:layout_width="wrap_content"
