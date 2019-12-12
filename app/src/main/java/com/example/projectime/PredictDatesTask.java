@@ -94,7 +94,7 @@ public class PredictDatesTask extends AsyncTask<SQLiteDatabase, Void, Void> {
                 }
             }
         }
-        db.close();
+        //db.close();
         return null;
     }
 }
