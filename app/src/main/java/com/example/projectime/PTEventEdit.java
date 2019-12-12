@@ -132,7 +132,7 @@ public class PTEventEdit extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         cursor.close();
-        db.close();
+        new PredictDatesTask().doInBackground(db);
     }
 
     public String[] initDayArray(){
