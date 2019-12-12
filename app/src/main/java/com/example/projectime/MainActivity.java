@@ -112,4 +112,9 @@ public class MainActivity extends AppCompatActivity {
         calendarNameCursor.close();
         db.close();
     }
+
+    public void openAgendaActivity(View view) {
+        Intent intent = new Intent(this, AgendaActivity.class);
+        startActivity(intent);
+    }
 }
