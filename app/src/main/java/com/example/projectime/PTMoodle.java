@@ -55,16 +55,21 @@ public class PTMoodle extends AppCompatActivity {
     }
 
     public void onLogin(View view){
-        EditText usernameEditText = findViewById(R.id.edit_text_username);
-        EditText passwordEditText = findViewById(R.id.edit_text_password);
-        EditText instanceUrlEditText = findViewById(R.id.edit_text_instance_url);
+        try {
+            EditText usernameEditText = findViewById(R.id.edit_text_username);
+            EditText passwordEditText = findViewById(R.id.edit_text_password);
+            EditText instanceUrlEditText = findViewById(R.id.edit_text_instance_url);
 
-        String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-        String instanceUrl = instanceUrlEditText.getText().toString();
+            String username = usernameEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+            String instanceUrl = instanceUrlEditText.getText().toString();
 
-        DataPopulateTask dpt = new DataPopulateTask(this);
-        dpt.execute(username, password, instanceUrl);
+            DataPopulateTask dpt = new DataPopulateTask(this);
+            dpt.execute(username, password, instanceUrl);
+        } catch (Exception e){
+            Toast toast = Toast.makeText(this, "Username/Password is wrong", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     public void addDatabaseEvents(ArrayList<Calendar> calendars) {

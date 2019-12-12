@@ -35,6 +35,7 @@ public class PTEventList extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+
         ListView eventListView = (ListView) findViewById(R.id.event_list);
 
         Intent intent = getIntent();

@@ -12,7 +12,7 @@
         <activity android:name=".PTEventEdit"></activity>
         <activity
             android:name=".PTEventList"
-            android:parentActivityName=".PTTabList" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PTTabList"
             android:parentActivityName=".MainActivity" />
