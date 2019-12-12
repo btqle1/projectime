@@ -120,7 +120,7 @@ public class PTEventEdit extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
-        db.close();
+    //    db.close();
 
         Intent intent = new Intent(this, PTEventList.class);
         intent.putExtra(EXTRA_TAB_ID, tabID);
