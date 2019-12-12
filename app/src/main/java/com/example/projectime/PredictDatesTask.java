@@ -38,7 +38,7 @@ public class PredictDatesTask extends AsyncTask<SQLiteDatabase, Void, Void> {
                 Cursor unknownEventCursor = db.query(
                     "EVENT",
                     new String[] { "_id", "TIME" },
-                    "CALENDAR_ID = ? AND TAB_ID = ? AND TIMEISKNOWN = FALSE",
+                    "CALENDAR_ID = ? AND TAB_ID = ? AND TIMEISKNOWN = 0",
                     new String[] {
                         String.valueOf(calendar),
                         String.valueOf(tab)
@@ -54,7 +54,7 @@ public class PredictDatesTask extends AsyncTask<SQLiteDatabase, Void, Void> {
                         "_id",
                         "TIME"
                     },
-                    "CALENDAR_ID = ? AND TAB_ID = ? AND TIMEISKNOWN = TRUE",
+                    "CALENDAR_ID = ? AND TAB_ID = ? AND TIMEISKNOWN = 1",
                     new String[] {
                         String.valueOf(calendar),
                         String.valueOf(tab)
